@@ -11,7 +11,13 @@ const pullLocalStorage = (key) => {
 }
 
 // startup function
-const startup = () => {}
+const startup = () => {
+  // add toggle to dispatch
+  const header = document.getElementById('dHeader');
+  const toggle = document.createElement('button');
+
+}
+
 
 // add listener to existing orders
 const catchUp = () => {}
@@ -20,6 +26,16 @@ const catchUp = () => {}
 const addNewOrder = () => {}
 
 // toggle to disable if needed
+const createToggle = () => {
+  const header = document.getElementById('dHeader');
+  header.style.position = 'relative'
+  const toggle = document.createElement('button');
+  toggle.innerText = 'toggle me';
+  toggle.style.position = 'absolute';
+  toggle.style.inset = '0 0 auto auto';
+  header.append(toggle);
+}
+
 const toggleDisableAgg = () => {}
 
 // each order has a button to agg manually
