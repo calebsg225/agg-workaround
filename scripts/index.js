@@ -1,6 +1,4 @@
-const body = document.getElementById('body');
+import helper from "./helper.js";
+import main from "./default/main.js";
 
-const hellotest = document.createElement('h1');
-hellotest.innerText = 'Hello Test';
-
-body.appendChild(hellotest);
+helper.appendElements([main], document.body);
