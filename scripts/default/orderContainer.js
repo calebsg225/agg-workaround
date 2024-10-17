@@ -4,7 +4,8 @@ import helper from "../helper.js";
 const createOrder = (name, status) => {
 
   const orderContainer = document.createElement('div');
-  orderContainer.id = 'order'
+  orderContainer.id = 'order';
+  orderContainer.className = 'order-container';
   
   const orderName = document.createElement('h2');
   orderName.innerText = name;
