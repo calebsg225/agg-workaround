@@ -14,8 +14,15 @@ const pullLocalStorage = (key) => {
 const startup = () => {
   // add toggle to dispatch
   const header = document.getElementById('dHeader');
-  const toggle = document.createElement('button');
 
+  const interval = window.setInterval(() => {
+    const orders = document.getElementsByClassName('order-container');
+    for (let i = 0; i < orders.length; i++) {
+      if (orders[i].childNodes[1].innerText === 'waiting for agg...') {
+        orders[i].childNodes[1].innerText = 'agg canceled';
+      }
+    }
+  }, 2000);
 }
 
 
@@ -29,23 +36,24 @@ const catchUp = () => {
   }
 }
 
-const interval = window.setInterval(() => {
-  const orders = document.getElementsByClassName('order-container');
-  for (let i = 0; i < orders.length; i++) {
-    if (orders[i].childNodes[1].innerText === 'waiting for agg...') {
-      orders[i].childNodes[1].innerText = 'agg canceled';
-    }
-  }
-}, 2000);
+const addStyles = () => {
+  const styles = `
+    
+  `;
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = styles;
+  document.head.appendChild(styleSheet);
+}
 
 // toggle to disable if needed
 const createToggle = () => {
   const header = document.getElementById('dHeader');
   header.style.position = 'relative'
-  const toggle = document.createElement('button');
-  toggle.innerText = 'toggle me';
-  toggle.style.position = 'absolute';
-  toggle.style.inset = '0 0 auto auto';
+
+  const toggle = document.createElement('input');
+  toggle.type = 'checkbox';
+  toggle.className = 'toggle-add-workaround';
+
   header.append(toggle);
 }
 
@@ -57,9 +65,16 @@ const toggleDisableAgg = () => {}
 
 // !!!!
 
-const changeStatus = (i) => {
-  const orders = document.getElementsByClassName('order-container');
-  orders[i].childNodes[1].innerText = "waiting for agg...";
+const changeStatus = (id) => {
+  const orderContainer = document.getElementById('order-assign');
+  for(const order of orderContainer.childNodes) {
+    if (+order.childNodes[1].dataset.id === id) {
+      const newStatus = document.createElement('div');
+      newStatus.className = 'newStatusTitle';
+      newStatus.innerText = 'Waiting for agg...';
+      order.childNodes[1].childNodes[0].after(newStatus);
+    }
+  }
 }
 
 // add listener to any new orders

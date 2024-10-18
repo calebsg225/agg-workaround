@@ -2,7 +2,7 @@ import helper from "../helper.js";
 import { createOrder } from "./orderContainer.js";
 
 const main = document.createElement('main');
-main.id = 'main';
+main.id = 'order-assign';
 
 const elements = [];
 for (let i = 0; i < 10; i++) {

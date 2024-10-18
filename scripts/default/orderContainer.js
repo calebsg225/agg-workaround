@@ -2,19 +2,31 @@ import helper from "../helper.js";
 
 // status: waiting for agg
 const createOrder = (name, status) => {
+  const orderId = Math.floor(Math.random() * 100000000);
 
   const orderContainer = document.createElement('div');
-  orderContainer.id = 'order';
-  orderContainer.className = 'order-container';
-  
-  const orderName = document.createElement('h2');
-  orderName.innerText = name;
-  orderName.className = status;
+  orderContainer.className = 'group';
 
-  const statusV = document.createElement('h3');
-  statusV.innerText = status;
+  const groupSide = document.createElement('div');
+  groupSide.className = 'group-side';
 
-  helper.appendElements([orderName, statusV], orderContainer);
+  const orderMain = document.createElement('div');
+  orderMain.dataset.id = orderId;
+
+
+  const oCheckboxSelector = document.createElement('div');
+  oCheckboxSelector.className = 'checkboxSelector';
+
+  const oBody = document.createElement('div');
+  oBody.className = 'body';
+  oBody.innerText = orderId;
+
+  const oInfo = document.createElement('div');
+  oInfo.className = 'info';
+
+  helper.appendElements([oCheckboxSelector, oBody, oInfo], orderMain);
+
+  helper.appendElements([groupSide, orderMain], orderContainer);
   return orderContainer;
 }
 
