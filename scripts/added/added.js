@@ -12,58 +12,46 @@ const pullLocalStorage = (key) => {
 
 // startup function
 const startup = () => {
-  // add toggle to dispatch
-  const header = document.getElementById('header');
-  header.style.position = 'relative'
+  // add styles
 
+  // add toggle to dispatch
   const toggle = document.createElement('input');
   toggle.type = 'checkbox';
-  toggle.className = 'toggle-add-workaround';
+  toggle.id = 'ddtog';
+  toggle.checked = true;
+  document.getElementById('header').append(toggle);
 
-  header.append(toggle);
-
-  // delete errors and whatnot
-  localStorage.removeItem('dispatchOne');
-  localStorage.removeItem('dispatchTwo');
-
-  // add set to localStorage
-  localStorage.setItem('ddorders', JSON.stringify([]));
+  // add doordashed orders to localStorage
+  localStorage.setItem('ddos', JSON.stringify([]));
 
   // monkey patch main functions
   const tempCallAgg = window.callAggregatorWithPw;
-  const tempCancelAgg = window.cancelAggregator;
-
   window.callAggregatorWithPw = (orderId) => {
-    const ddOrders = new Set(eval(localStorage.getItem('ddorders')));
-    if (!(ddOrders.has(+orderId))) {
-      ddOrders.add(+orderId);
-    }
-    localStorage.setItem('ddorders', JSON.stringify([...ddOrders]));
+    const ddOrders = new Set(eval(localStorage.getItem('ddos')));
+    if (!(ddOrders.has(+orderId))) ddOrders.add(+orderId);
+    localStorage.setItem('ddos', JSON.stringify([...ddOrders]));
     tempCallAgg(orderId);
   }
 
+  const tempCancelAgg = window.cancelAggregator;
   window.cancelAggregator = (orderId, aggCarrierId) => {
-    const ddOrders = new Set(eval(localStorage.getItem('ddorders')));
-    if (ddOrders.has(+orderId)) {
-      ddOrders.delete(+orderId);
-    }
-    localStorage.setItem('ddorders', JSON.stringify([...ddOrders]));
+    const ddOrders = new Set(eval(localStorage.getItem('ddos')));
+    if (ddOrders.has(+orderId)) ddOrders.delete(+orderId);
+    localStorage.setItem('ddos', JSON.stringify([...ddOrders]));
     tempCancelAgg(orderId, aggCarrierId);
   }
 
   // create agg blocker interval
-  const interval = window.setInterval(() => {
-    const ordersAssign = document.getElementById('order-assign');
-    for (const order of ordersAssign.childNodes) {
-      if (new Set(eval(localStorage.getItem('ddorders'))).has(+order.childNodes[1].dataset.id)) { return }
-      if (order.childNodes[1].childElementCount >= 4 && new Set(['W', 'w']).has(order.childNodes[1].childNodes[1].innerText.charAt(0))) {
-
-      }
-    }
-    for (let i = 0; i < orders.length; i++) {
-      if (new Set(['W', 'w']).has(orders[i].childNodes[1].innerText.charAt(0))) {
-        orders[i].childNodes[1].innerText = 'agg canceled';
-      }
+  window.setInterval(() => {
+    const tog = document.getElementById('ddtog');
+    if (!tog || !tog.checked) return; // if not currently activated, don't run
+    const orderA = document.getElementById('order-assign');
+    for (const order of orderA.childNodes) {
+      // TODO: adjust for newly added doordash logo (if need be)
+      const oB = order.childNodes[1];
+      const oID = +oB.dataset.id;
+      // if (has not been manually doordashed &&&& there is an added status &&&& the status is 'Waiting for agg...')
+      if (!(new Set(eval(localStorage.getItem('ddos'))).has(oID)) && oB.childElementCount >= 4 && new Set(['W', 'w']).has(oB.childNodes[1].innerText.charAt(0))) cancelAggregator(oID);
     }
   }, 2000);
 }
