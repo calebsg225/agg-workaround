@@ -45,29 +45,10 @@ const startup = () => {
   window.setInterval(() => {
     const tog = document.getElementById('ddtog');
     if (!tog || !tog.checked) return; // if not currently activated, don't run
-    const orderA = document.getElementById('order-assign');
-    for (const order of orderA.childNodes) {
-      // TODO: adjust for newly added doordash logo (if need be)
-      const oB = order.childNodes[1];
-      const oID = +oB.dataset.id;
-      // if (has not been manually doordashed &&&& there is an added status &&&& the status is 'Waiting for agg...')
-      if (!(new Set(eval(localStorage.getItem('ddos'))).has(oID)) && oB.childElementCount >= 4 && new Set(['W', 'w']).has(oB.childNodes[1].innerText.charAt(0))) cancelAggregator(oID);
-    }
+    const status = document.getElementById('order-assign').getElementsByClassName('newStatusTitle');
+    for (const s of status) { if (s.dataset.status === 'waitingForAgg') cancelAggregator(+s.parentNode.dataset.id) }
   }, 2000);
 }
-
-const DDDchangeStatus = (id) => {
-  const orderContainer = document.getElementById('order-assign');
-  for(const order of orderContainer.childNodes) {
-    if (+order.childNodes[1].dataset.id === id) {
-      const newStatus = document.createElement('div');
-      newStatus.className = 'newStatusTitle';
-      newStatus.innerText = 'Waiting for agg...';
-      order.childNodes[1].childNodes[0].after(newStatus);
-    }
-  }
-}
-
 
 // add listener to existing orders
 const catchUp = () => {
@@ -100,10 +81,6 @@ const createToggle = () => {
   header.append(toggle);
 }
 
-
-
-const toggleDisableAgg = () => {}
-
 // each order has a button to agg manually
 
 // !!!!
@@ -114,11 +91,41 @@ const changeStatus = (id) => {
     if (+order.childNodes[1].dataset.id === id) {
       const newStatus = document.createElement('div');
       newStatus.className = 'newStatusTitle';
+      newStatus.dataset.status = 'waitingForAgg';
       newStatus.innerText = 'Waiting for agg...';
       order.childNodes[1].childNodes[0].after(newStatus);
     }
   }
 }
 
-// add listener to any new orders
-const addNewOrder = () => {}
+const fdd = () => {
+  const t = document.createElement('input'); 
+  t.type = 'checkbox'; 
+  t.id = 'ddtg'; 
+  t.checked = true; 
+  document.getElementById('header').append(t); localStorage.setItem('ddos', JSON.stringify([])); 
+  const tca = window.callAggregatorWithPw; 
+  window.callAggregatorWithPw = (oId) => {
+    const ddos = new Set(eval(localStorage.getItem('ddos'))); 
+    if (!(ddos.has(+oId))) ddos.add(+oId); 
+    localStorage.setItem('ddos', JSON.stringify([...ddos])); 
+    tca(oId); 
+  }
+  const tcag = window.cancelAggregator; 
+  window.cancelAggregator = (oId, acId) => {
+    const ddos = new Set(eval(localStorage.getItem('ddos'))); 
+    if (ddos.has(+oId)) ddos.delete(+oId); 
+    localStorage.setItem('ddos', JSON.stringify([...ddos])); 
+    tcag(oId, acId); 
+  }
+  window.setInterval(() => { 
+    const tg = document.getElementById('ddtg'); 
+    if (!tg || !tg.checked) return; 
+    const ss = document.getElementById('order-assign').getElementsByClassName('newStatusTitle');
+    const oIds = new Set(eval(localStorage.getItem('ddos')));
+    for (const s of ss) { 
+      const oId = +s.parentNode.dataset.id;
+      if (!oIds.has(oId) && s.dataset.status === 'waitingForAgg') cancelAggregator(oId);
+    }
+  }, 2000);
+}

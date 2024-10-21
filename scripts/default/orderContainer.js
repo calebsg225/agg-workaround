@@ -11,8 +11,8 @@ const createOrder = (name, status) => {
   groupSide.className = 'group-side';
 
   const orderMain = document.createElement('div');
+  orderMain.id = `order${orderId}`;
   orderMain.dataset.id = orderId;
-
 
   const oCheckboxSelector = document.createElement('div');
   oCheckboxSelector.className = 'checkboxSelector';
@@ -24,7 +24,11 @@ const createOrder = (name, status) => {
   const oInfo = document.createElement('div');
   oInfo.className = 'info';
 
-  helper.appendElements([oCheckboxSelector, oBody, oInfo], orderMain);
+  const doordash = document.createElement('button');
+  doordash.innerText = "Call Aggregator";
+  doordash.onclick = () => {window.callAggregatorWithPw(orderId)}
+
+  helper.appendElements([oCheckboxSelector, oBody, oInfo, doordash], orderMain);
 
   helper.appendElements([groupSide, orderMain], orderContainer);
   return orderContainer;
