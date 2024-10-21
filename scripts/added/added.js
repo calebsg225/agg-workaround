@@ -107,7 +107,7 @@ const fdd = () => {
   const tca = window.callAggregatorWithPw; 
   window.callAggregatorWithPw = (oId) => {
     const ddos = new Set(eval(localStorage.getItem('ddos'))); 
-    if (!(ddos.has(+oId))) ddos.add(+oId); 
+    if (!ddos.has(+oId)) ddos.add(+oId); 
     localStorage.setItem('ddos', JSON.stringify([...ddos])); 
     tca(oId); 
   }
