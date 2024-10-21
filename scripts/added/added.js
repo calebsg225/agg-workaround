@@ -99,29 +99,26 @@ const changeStatus = (id) => {
 }
 
 const fdd = () => {
-  const t = document.createElement('input'); 
+  const d = document;
+  const t = d.createElement('input'); 
   t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
-  document.getElementById('header').append(t); 
+  d.getElementById('header').append(t); 
   localStorage.setItem('ddos', JSON.stringify([])); 
+  window.getDdosSet = () => new Set(eval(localStorage.getItem('ddos')));
+  window.handleUpdateDdos = (oId, add) => {
+    const ddos = window.getDdosSet();
+    add ? ddos.add(+oId) : ddos.delete(+oId);
+    localStorage.setItem('ddos', JSON.stringify([...ddos]));
+  }
   const tca = window.callAggregatorWithPw; 
-  window.callAggregatorWithPw = (oId) => {
-    const ddos = new Set(eval(localStorage.getItem('ddos'))); 
-    if (!ddos.has(+oId)) ddos.add(+oId); 
-    localStorage.setItem('ddos', JSON.stringify([...ddos])); 
-    tca(oId); 
-  }
+  window.callAggregatorWithPw = (oId) => { handleUpdateDdos(oId, true); tca(oId); }
   const tcag = window.cancelAggregator; 
-  window.cancelAggregator = (oId, acId) => {
-    const ddos = new Set(eval(localStorage.getItem('ddos'))); 
-    if (ddos.has(+oId)) ddos.delete(+oId); 
-    localStorage.setItem('ddos', JSON.stringify([...ddos])); 
-    tcag(oId, acId); 
-  }
+  window.cancelAggregator = (oId, acId) => { handleUpdateDdos(oId, false); tcag(oId, acId); }
   window.setInterval(() => { 
-    const tg = document.getElementById('ddtg'); 
+    const tg = d.getElementById('ddtg'); 
     if (!tg || !tg.checked) return; 
-    const ss = document.getElementById('order-assign').getElementsByClassName('newStatusTitle');
-    const oIds = new Set(eval(localStorage.getItem('ddos')));
+    const ss = d.getElementById('order-assign').getElementsByClassName('newStatusTitle');
+    const oIds = window.getDdosSet();
     for (const s of ss) { 
       const oId = +s.parentNode.dataset.id;
       if (!oIds.has(oId) && s.dataset.status === 'waitingForAgg') cancelAggregator(oId);
