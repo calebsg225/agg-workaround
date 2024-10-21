@@ -100,14 +100,13 @@ const changeStatus = (id) => {
 
 const fdd = () => {
   const t = document.createElement('input'); 
-  t.type = 'checkbox'; 
-  t.id = 'ddtg'; 
-  t.checked = true; 
-  document.getElementById('header').append(t); localStorage.setItem('ddos', JSON.stringify([])); 
+  t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
+  document.getElementById('header').append(t); 
+  localStorage.setItem('ddos', JSON.stringify([])); 
   const tca = window.callAggregatorWithPw; 
   window.callAggregatorWithPw = (oId) => {
     const ddos = new Set(eval(localStorage.getItem('ddos'))); 
-    if (!(ddos.has(+oId))) ddos.add(+oId); 
+    if (!ddos.has(+oId)) ddos.add(+oId); 
     localStorage.setItem('ddos', JSON.stringify([...ddos])); 
     tca(oId); 
   }
