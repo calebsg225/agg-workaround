@@ -111,9 +111,9 @@ const fdd = () => {
     localStorage.setItem('ddos', JSON.stringify([...ddos]));
   }
   const tca = window.callAggregatorWithPw; 
-  window.callAggregatorWithPw = (oId) => { handleUpdateDdos(oId, true); tca(oId); }
+  window.callAggregatorWithPw = (oId) => {handleUpdateDdos(oId, true); tca(oId)}
   const tcag = window.cancelAggregator; 
-  window.cancelAggregator = (oId, acId) => { handleUpdateDdos(oId, false); tcag(oId, acId); }
+  window.cancelAggregator = (oId, acId) => {handleUpdateDdos(oId, false); tcag(oId, acId)}
   window.setInterval(() => { 
     const tg = d.getElementById('ddtg'); 
     if (!tg || !tg.checked) return; 
