@@ -105,7 +105,7 @@ const fdd = () => {
   const t = d.createElement('input'); 
   t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
   d.getElementById('header').append(t); 
-  ls.setItem('ddos', JSON.stringify([])); 
+  ls.setItem('ddos', '[]'); 
   w.getDdosSet = () => new Set(eval(ls.getItem('ddos')));
   w.handleUpdateDdos = (oId, add) => {
     const ddos = w.getDdosSet();
