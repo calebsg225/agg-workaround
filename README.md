@@ -20,9 +20,11 @@ The `startup function` does the following:
 
 Toggle the `toggle` off to let the AI take over. Toggle it on to disable the AI's decisions.
 
-Any orders with an order ID found in the `array` will not be canceled by the `interval function`. This ensures that any orders in-store employees aggregate manually will be aggregated.
+Any orders with an order ID found in the `array` will not be canceled by the `interval function`. This ensures that any orders in-store employees aggregate manually will be aggregated as intended.
 
 ### Store the function
+**\*\*If you do not know the url of your Dragontail dispatch, hover over the zoom buttons for the map. The url will appear in the bottom left corner of the screen. It will look something like: `http://10._._._:____/dispatch`. This is the url you will enter into the browser.**
+
 Open the Dragontail dispatch screen in a non-incognito window, then run the following code to store the `startup function` in localStorage under the key `fdd`. Unless localStorage is cleared out in the future, you only have to do this once.
 ``` js
 localStorage.setItem('fdd', () => {
