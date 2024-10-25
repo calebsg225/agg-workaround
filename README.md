@@ -29,12 +29,9 @@ Open the Dragontail dispatch screen in a non-incognito window, then run the foll
 ``` js
 // compact code for quick(er) typing
 localStorage.setItem('fdd', () => {
-  const w = window;
-  const d = document;
-  const t = d.createElement('input'); 
-  t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
-  d.getElementById('logo').append(t);
-  w.ddos = new Set();
+  const w = window; const d = document;
+  const t = d.createElement('input'); t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
+  d.getElementById('logo').append(t); w.ddos = new Set();
   const tca = w.callAggregatorWithPw; 
   w.callAggregatorWithPw = (oId) => {ddos.add(+oId); console.log('dd', oId); tca(oId)}
   const tcag = w.cancelAggregator; 
@@ -42,10 +39,8 @@ localStorage.setItem('fdd', () => {
   w.setInterval(() => {
     if (!t || !t.checked) return; 
     const ss = d.getElementById('order-assign').getElementsByClassName('newStatusTitle');
-    for (const s of ss) { 
-      const oId = +s.parentNode.dataset.id;
-      if (!ddos.has(oId) && s.dataset.status === 'waitingForAgg') cancelAggregator(oId);
-    }
+    for (const s of ss) { const oId = +s.parentNode.dataset.id;
+      if (!ddos.has(oId) && s.dataset.status === 'waitingForAgg') cancelAggregator(oId) }
   }, 2000);
 });
 ```
