@@ -5,14 +5,12 @@ import main from "./default/main.js";
 helper.appendElements([header, main], document.body);
 
 window.cancelAggregator = (orderId, aggCarrierId) => {
-  console.log('canceling', orderId);
   const orderS = document.getElementById(`order${orderId}`).getElementsByClassName('newStatusTitle')[0];
   orderS.dataset.status = "aggCanceled";
   orderS.innerText = "Agg canceled";
 }
 
 window.callAggregatorWithPw = (orderId) => {
-  console.log('agging', orderId);
   const order = document.getElementById(`order${orderId}`);
   const ns = order.getElementsByClassName('newStatusTitle');
   if (ns.length) {

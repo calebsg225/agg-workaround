@@ -1,3 +1,37 @@
+
+// main function
+const fdd = () => {
+  const w = window;
+  const d = document;
+  const ls = localStorage;
+  const t = d.createElement('input'); 
+  t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
+  d.getElementById('logo').append(t);
+  ls.setItem('ddos', '[]'); 
+  w.gDdosS = () => new Set(eval(ls.getItem('ddos')));
+  w.hUDdos = (oId, add) => {
+    const ddos = gDdosS();
+    add ? ddos.add(+oId) : ddos.delete(+oId);
+    ls.setItem('ddos', JSON.stringify([...ddos]));
+  }
+  const tca = w.callAggregatorWithPw; 
+  w.callAggregatorWithPw = (oId) => {hUDdos(oId, true); console.log('dd', oId); tca(oId)}
+  const tcag = w.cancelAggregator; 
+  w.cancelAggregator = (oId, acId) => {hUDdos(oId, false); console.log('ca', oId); tcag(oId, acId)}
+  w.setInterval(() => { 
+    const tg = d.getElementById('ddtg'); 
+    if (!tg || !tg.checked) return; 
+    const ss = d.getElementById('order-assign').getElementsByClassName('newStatusTitle');
+    const oIds = gDdosS();
+    for (const s of ss) { 
+      const oId = +s.parentNode.dataset.id;
+      if (!oIds.has(oId) && s.dataset.status === 'waitingForAgg') cancelAggregator(oId);
+    }
+  }, 2000);
+}
+
+
+
 // push function to localstorage
 const pushLocalStorage = (key, data) => {
   localStorage.setItem(key, data.toString());
@@ -96,34 +130,4 @@ const changeStatus = (id) => {
       order.childNodes[1].childNodes[0].after(newStatus);
     }
   }
-}
-
-const fdd = () => {
-  const w = window;
-  const d = document;
-  const ls = localStorage;
-  const t = d.createElement('input'); 
-  t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
-  d.getElementById('header').append(t); 
-  ls.setItem('ddos', '[]'); 
-  w.getDdosSet = () => new Set(eval(ls.getItem('ddos')));
-  w.handleUpdateDdos = (oId, add) => {
-    const ddos = w.getDdosSet();
-    add ? ddos.add(+oId) : ddos.delete(+oId);
-    ls.setItem('ddos', JSON.stringify([...ddos]));
-  }
-  const tca = w.callAggregatorWithPw; 
-  w.callAggregatorWithPw = (oId) => {handleUpdateDdos(oId, true); tca(oId)}
-  const tcag = w.cancelAggregator; 
-  w.cancelAggregator = (oId, acId) => {handleUpdateDdos(oId, false); tcag(oId, acId)}
-  w.setInterval(() => { 
-    const tg = d.getElementById('ddtg'); 
-    if (!tg || !tg.checked) return; 
-    const ss = d.getElementById('order-assign').getElementsByClassName('newStatusTitle');
-    const oIds = w.getDdosSet();
-    for (const s of ss) { 
-      const oId = +s.parentNode.dataset.id;
-      if (!oIds.has(oId) && s.dataset.status === 'waitingForAgg') cancelAggregator(oId);
-    }
-  }, 2000);
 }
