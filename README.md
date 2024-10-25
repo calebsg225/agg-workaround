@@ -12,7 +12,7 @@ The AI powering the Dragontail dispatch makes loads of mistakes daily and is sim
 - [Run the function](#run-the-function)
 
 ### How it works
-The startup function does the following:
+The `startup function` does the following:
 1) creates a `toggle` to turn the `interval function` on/off
 2) creates an empty `array` that will contain order IDs
 3) 'monkey patches' the existing doordash functions activated when an in-store employee manually aggregates an order or manually cancels an aggregated order. The new functions add/remove order IDs from the `array` before running the original functions
@@ -23,7 +23,7 @@ Toggle the `toggle` off to let the AI take over. Toggle it on to disable the AI'
 Any orders with an order ID found in the `array` will not be canceled by the `interval function`. This ensures that any orders in-store employees aggregate manually will be aggregated.
 
 ### Store the function
-Open the Dragontail dispatch screen in a non-incognito window, then run the following code to store the startup function in localStorage under the key `fdd`. Unless localStorage is cleared out in the future, you only have to do this once.
+Open the Dragontail dispatch screen in a non-incognito window, then run the following code to store the `startup function` in localStorage under the key `fdd`. Unless localStorage is cleared out in the future, you only have to do this once.
 ``` js
 localStorage.setItem('fdd', () => {
   const w = window;
@@ -58,7 +58,7 @@ localStorage.setItem('fdd', () => {
 
 ### Run the function
 
-Whenever you want to activate the workaround, open the Dragontail dispatch in a non-incognito window and run the following code to retrieve the startup function previously stored in localStorage under the key `fdd`:
+Whenever you want to activate the program, open the Dragontail dispatch in a non-incognito window and run the following code to retrieve and run the `startup function` previously stored in localStorage under the key `fdd`:
 ```js 
 eval(localStorage.getItem('fdd'))();
 ```
