@@ -23,7 +23,9 @@ Toggle the `toggle` off to let the AI take over. Toggle it on to disable the AI'
 Any orders with an order ID found in the `set` will not be canceled by the `interval function`. This ensures that any orders in-store employees aggregate manually will be aggregated as intended.
 
 ### Store the function
-**\*\*If you do not know the url of your Dragontail dispatch, hover over the zoom buttons for the map. The url will appear in the bottom left corner of the screen. It will look something like: `http://10._._._:____/dispatch`. This is the url you will enter into the browser.**
+**\*\*If you do not know the url of your Dragontail dispatch, hover over the zoom buttons for the map. The url will appear in the bottom left corner of the screen. It will look something like: `http://10._._._:____/dispatch`. This is the URL you will enter into the browser.**
+
+**IMPORTANT: Dragontails' system was not built to handle multiple dispatch screens simultaneously. Therefore, it is recommended that you close the previous dispatch screen before entering the URL for the new one.**
 
 Open the Dragontail dispatch screen in a non-incognito window, then run the following code to store the `startup function` in localStorage under the key `fdd`. Unless localStorage is cleared out in the future, you only have to do this once.
 ``` js
