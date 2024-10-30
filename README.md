@@ -38,8 +38,8 @@ localStorage.setItem('fdd', () => {
   w.cancelAggregator = (oId, acId) => {ddos.delete(+oId); console.log('ca', oId); tcag(oId, acId)}
   w.setInterval(() => {
     if (!t || !t.checked) return; 
-    const ss = d.getElementById('order-assign').getElementsByClassName('newStatusTitle');
-    for (const s of ss) { const oId = +s.parentNode.dataset.id;
+    for (const s of d.getElementById('order-assign').getElementsByClassName('newStatusTitle')) {
+      const oId = +s.parentNode.dataset.id;
       if (!ddos.has(oId) && s.dataset.status === 'waitingForAgg') cancelAggregator(oId) }
   }, 2000);
 });
