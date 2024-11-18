@@ -1,10 +1,8 @@
 # Aggregator Workaround
-This is a small program created to circumvent Dragontail's auto-aggregate toggle, giving full control of the dispatch screen back to the in-store employees. This program mimics turning the toggle off, but without alerting Dragontail or out-of-store management.
+This is a small program created to circumvent Dragontail's auto-aggregate toggle, giving full control of the dispatch screen back to the in-store employees. This program mimics turning the toggle off, but ***without alerting Dragontail or out-of-store management.***
 
 ### Background
-From what I gather, the out-of-store management team made some type of contract with Doordash and/or Dragontail. I am not clear as to the specific wording, or even if the contract exists, but the overview seems to be that stores are required to allow Doordash to automatically send delivery orders to Doordash that would otherwise go to in-store delivery drivers. Turning off the auto-aggregate toggle is therefore considered a breach of contract. Regardless of whether the contract exists, out-of-store management has made it clear that anyone found to have turned the toggle off will be fired, along with the General Manager of the store.
-
-The AI powering the Dragontail dispatch makes loads of mistakes daily and is simply not sufficient for its task. Any in-store employee could do a better job after ~30 minutes (probably less) of training on the dispatch screen. Most managers and drivers are already better than the AI at dispatching. The only real upside to using the AI is as backup if the store is understaffed or sufficiently busy.
+The AI powering the Dragontail dispatch makes loads of mistakes daily and is simply not sufficient for its task. Any in-store employee could do a better job after ~30 minutes (probably less) of training on the dispatch screen. Most managers and drivers are already better than the AI at dispatching. The only real upside to using the AI is as backup if the store is understaffed or sufficiently busy. Out-of-store management has made it clear that ***anyone who turns the auto-aggregate toggle off will be fired.***
 
 ## The Program
 - [How it Works](#how-it-works)
