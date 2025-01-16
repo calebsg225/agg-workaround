@@ -7,9 +7,9 @@ The AI powering the Dragontail dispatch makes loads of mistakes daily and is sim
 ## The Program
 - [How it Works](#how-it-works)
 - [Store the function](#store-the-function)
-  - [IMPORTANT](important)
-  - [UPDATE](update)
-  - [A note on localStorage](a-note-on-local-storage)
+  - [IMPORTANT](#important)
+  - [UPDATE](#update)
+  - [A note on localStorage](#a-note-on-local-storage)
 - [Run the function](#run-the-function)
 
 ### How it works
@@ -36,7 +36,7 @@ This means that storing `fdd` into localStorage\* is no longer a viable solution
 - #### A note on localStorage
   Even if Dragontail Dispatch *could* be run without error on a non-incognito browser, localStorage seems to be cleared frequently enough to the point that you would be re-entering the same function manually almost every time you open Dragontail Dispatch. I leave it up to the reader to decide whether this 'workaround' is worth the effort.
 
-Open the Dragontail dispatch screen in a non-incognito[*](update) window, then run the following code to store the `startup function` in localStorage[*](a-note-on-local-storage) under the key `fdd`. Unless localStorage[*](a-note-on-local-storage) is cleared out in the future, you only have to do this once.
+Open the Dragontail dispatch screen in a non-incognito[*](#update) window, then run the following code to store the `startup function` in localStorage[*](#a-note-on-local-storage) under the key `fdd`. Unless localStorage[*](#a-note-on-local-storage) is cleared out in the future, you only have to do this once.
 
 Store the `startup function` under key `fdd` in localStorage:
 ``` js
@@ -60,7 +60,7 @@ localStorage.setItem('fdd', () => {
 
 ### Run the function
 
-Whenever you want to activate the program, open the Dragontail dispatch in a non-incognito[*](update) window and run the following code to retrieve and run the `startup function` previously stored in localStorage[*](a-note-on-local-storage) under the key `fdd`:
+Whenever you want to activate the program, open the Dragontail dispatch in a non-incognito[*](#update) window and run the following code to retrieve and run the `startup function` previously stored in localStorage[*](#a-note-on-local-storage) under the key `fdd`:
 ```js 
 eval(localStorage.getItem('fdd'))();
 ```
