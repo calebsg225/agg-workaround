@@ -7,6 +7,9 @@ The AI powering the Dragontail dispatch makes loads of mistakes daily and is sim
 ## The Program
 - [How it Works](#how-it-works)
 - [Store the function](#store-the-function)
+  - [IMPORTANT](important)
+  - [UPDATE](update)
+  - [A note on localStorage](a-note-on-local-storage)
 - [Run the function](#run-the-function)
 
 ### How it works
@@ -21,13 +24,23 @@ Toggle the `toggle` off to let the AI take over. Toggle it on to disable the AI'
 Any orders with an order ID found in the `set` will not be canceled by the `interval function`. This ensures that any orders in-store employees aggregate manually will be aggregated as intended.
 
 ### Store the function
-**\*\*If you do not know the url of your Dragontail dispatch, hover over the zoom buttons for the map. The url will appear in the bottom left corner of the screen. It will look something like: `http://10._._._:____/dispatch`. This is the URL you will enter into the browser.**
+**\*\*If you do not know the URL of your Dragontail dispatch, hover over the zoom buttons for the map. The URL will appear in the bottom left corner of the screen. It will look something like: `http://10._._._:____/dispatch`. This is the URL you will enter into the browser.**
 
-**IMPORTANT: Dragontails' system was not built to handle multiple dispatch screens simultaneously. Therefore, it is recommended that you close the previous dispatch screen before entering the URL for the new one.**
+- #### IMPORTANT
+  Dragontails' system was not built to handle multiple dispatch screens simultaneously. It is therefore recommended that you close the previous dispatch screen before entering the URL for the new one.
 
-Open the Dragontail dispatch screen in a non-incognito window, then run the following code to store the `startup function` in localStorage under the key `fdd`. Unless localStorage is cleared out in the future, you only have to do this once.
+- #### UPDATE
+  For some (unknown to me) reason, Dragontail Dispatch 'breaks' if run in a non-incognito window: they state a connection error between their servers and the Doordash servers. This results in all deliveries being automatically aggregated (sent to Doordash). This can be avoided by opening the URL in an incognito browser instead of a non-incognito browser as stated above.
+This means that storing `fdd` into localStorage\* is no longer a viable solution. You will need to re-type and re-run the `fdd` function every time you open Dragontail Dispatch.
+
+- #### A note on localStorage
+  Even if Dragontail Dispatch *could* be run without error on a non-incognito browser, localStorage seems to be cleared frequently enough to the point that you would be re-entering the same function manually almost every time you open Dragontail Dispatch. I leave it up to the reader to decide whether this 'workaround' is worth the effort.
+
+Open the Dragontail dispatch screen in a non-incognito[*](update) window, then run the following code to store the `startup function` in localStorage[*](a-note-on-local-storage) under the key `fdd`. Unless localStorage[*](a-note-on-local-storage) is cleared out in the future, you only have to do this once.
+
+Store the `startup function` under key `fdd` in localStorage:
 ``` js
-// compact code for quick(er) typing
+// compact code for less typing?
 localStorage.setItem('fdd', () => {
   const w = window; const d = document;
   const t = d.createElement('input'); t.type = 'checkbox'; t.id = 'ddtg'; t.checked = true; 
@@ -47,7 +60,7 @@ localStorage.setItem('fdd', () => {
 
 ### Run the function
 
-Whenever you want to activate the program, open the Dragontail dispatch in a non-incognito window and run the following code to retrieve and run the `startup function` previously stored in localStorage under the key `fdd`:
+Whenever you want to activate the program, open the Dragontail dispatch in a non-incognito[*](update) window and run the following code to retrieve and run the `startup function` previously stored in localStorage[*](a-note-on-local-storage) under the key `fdd`:
 ```js 
 eval(localStorage.getItem('fdd'))();
 ```
